@@ -70,7 +70,7 @@
       for (var i = 0; i < unbrokenLines.length; i++) {
         var words = unbrokenLines[i].split(' '),
         line = '';
-        for (var j = 0; j < words.length; i++) {
+        for (var j = 0; j < words.length; j++) {
           var testLine = line + words[j] + ' ',
               metrics = ctx.measureText(testLine),
               testWidth = metrics.width;
