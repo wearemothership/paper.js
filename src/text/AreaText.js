@@ -84,12 +84,17 @@
         }
         this._lines.push(line);
       }
+      this._updateAnchor();
    },
 
    _updateAnchor: function() {
      var justification = this._style.getJustification(),
-         rectangle = this.getRectangle(),
-         anchor = new Point(0,this._style.getFontSize());
+         rectangle = this.getRectangle();
+     //var anchor = new Point(0,this._style.getFontSize());
+     
+     // text centered vertically
+     var anchor = new Point(0,Math.max(this._style.getFontSize(), (rectangle.height/2 - this._style.getFontSize() * (this._lines.length - 2) /2)));
+
      if (justification == 'center') {
        anchor = anchor.add([rectangle.width/2,0]);
      }
