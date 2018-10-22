@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Sun Oct 21 08:38:09 2018 +0100
+ * Date: Mon Oct 22 14:43:19 2018 +0100
  *
  ***
  *
@@ -11246,7 +11246,7 @@ var PointText = TextItem.extend({
 	  for (var i = 0; i < unbrokenLines.length; i++) {
 		var words = unbrokenLines[i].split(' '),
 		line = '';
-		for (var j = 0; j < words.length; i++) {
+		for (var j = 0; j < words.length; j++) {
 		  var testLine = line + words[j] + ' ',
 			  metrics = ctx.measureText(testLine),
 			  testWidth = metrics.width;
