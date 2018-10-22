@@ -64,25 +64,26 @@
    },
 
    _wrap: function(ctx) {
-     // this._lines = this._content.split(/\r\n|\n|\r/mg);
+     var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
      this._lines = [];
 
-     var words = this._content.split(' '),
-         line = '';
-
-     for (var i = 0; i < words.length; i++) {
-       var testLine = line + words[i] + ' ',
-           metrics = ctx.measureText(testLine),
-           testWidth = metrics.width;
-       if (testWidth > this.rectangle.width && i > 0) {
-         this._lines.push(line);
-         line = words[i] + ' ';
-       }
-       else {
-         line = testLine;
-       }
-     }
-     this._lines.push(line);
+      for (var i = 0; i < unbrokenLines.length; i++) {
+        var words = unbrokenLines[i].split(' '),
+        line = '';
+        for (var j = 0; j < words.length; i++) {
+          var testLine = line + words[j] + ' ',
+              metrics = ctx.measureText(testLine),
+              testWidth = metrics.width;
+          if (testWidth > this.rectangle.width && j > 0) {
+            this._lines.push(line);
+            line = words[j] + ' ';
+          }
+          else {
+            line = testLine;
+          }
+        }
+        this._lines.push(line);
+      }
    },
 
    _updateAnchor: function() {

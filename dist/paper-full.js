@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Sun Oct 21 08:32:45 2018 +0100
+ * Date: Sun Oct 21 08:38:09 2018 +0100
  *
  ***
  *
@@ -11243,24 +11243,26 @@ var PointText = TextItem.extend({
    },
 
    _wrap: function(ctx) {
+	 var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
 	 this._lines = [];
 
-	 var words = this._content.split(' '),
-		 line = '';
-
-	 for (var i = 0; i < words.length; i++) {
-	   var testLine = line + words[i] + ' ',
-		   metrics = ctx.measureText(testLine),
-		   testWidth = metrics.width;
-	   if (testWidth > this.rectangle.width && i > 0) {
-		 this._lines.push(line);
-		 line = words[i] + ' ';
-	   }
-	   else {
-		 line = testLine;
-	   }
-	 }
-	 this._lines.push(line);
+	  for (var i = 0; i < unbrokenLines.length; i++) {
+		var words = unbrokenLines[i].split(' '),
+		line = '';
+		for (var j = 0; j < words.length; i++) {
+		  var testLine = line + words[j] + ' ',
+			  metrics = ctx.measureText(testLine),
+			  testWidth = metrics.width;
+		  if (testWidth > this.rectangle.width && j > 0) {
+			this._lines.push(line);
+			line = words[j] + ' ';
+		  }
+		  else {
+			line = testLine;
+		  }
+		}
+		this._lines.push(line);
+	  }
    },
 
    _updateAnchor: function() {
