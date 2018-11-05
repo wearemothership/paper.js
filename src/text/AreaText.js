@@ -64,9 +64,9 @@
    },
 
    _wrap: function(ctx) {
-     var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
-     this._lines = [];
-
+      var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
+      this._lines = [];
+      var minWidth = 0;
       for (var i = 0; i < unbrokenLines.length; i++) {
         var words = unbrokenLines[i].split(' '),
         line = '';
@@ -79,12 +79,17 @@
             line = words[j] + ' ';
           }
           else {
+            if (j == 0) {
+              // longest single word line
+              minWidth = Math.max(minWidth, testWidth);
+            }
             line = testLine;
           }
         }
         this._lines.push(line);
       }
       this._updateAnchor();
+      this.minWidth = minWidth;
    },
 
    _updateAnchor: function() {

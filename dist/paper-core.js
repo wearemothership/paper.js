@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Oct 22 18:28:19 2018 +0100
+ * Date: Mon Oct 22 18:37:48 2018 +0100
  *
  ***
  *
@@ -11240,9 +11240,9 @@ var PointText = TextItem.extend({
    },
 
    _wrap: function(ctx) {
-	 var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
-	 this._lines = [];
-
+	  var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
+	  this._lines = [];
+	  var minWidth = 0;
 	  for (var i = 0; i < unbrokenLines.length; i++) {
 		var words = unbrokenLines[i].split(' '),
 		line = '';
@@ -11255,12 +11255,16 @@ var PointText = TextItem.extend({
 			line = words[j] + ' ';
 		  }
 		  else {
+			if (j == 0) {
+			  minWidth = Math.max(minWidth, testWidth);
+			}
 			line = testLine;
 		  }
 		}
 		this._lines.push(line);
 	  }
 	  this._updateAnchor();
+	  this.minWidth = minWidth;
    },
 
    _updateAnchor: function() {
