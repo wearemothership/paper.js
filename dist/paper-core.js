@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Nov 5 13:11:50 2018 +0000
+ * Date: Fri Nov 9 10:37:41 2018 +0000
  *
  ***
  *
@@ -11307,7 +11307,7 @@ var PointText = TextItem.extend({
 	   ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	   ctx.clip();
 	   var lines = this._lines;
-	   for (var i = 0, l = lines.length && i * leading <= rectangle.height; i < l; i++) {
+	   for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
 		   ctx.shadowColor = shadowColor;
 		   var line = lines[i];
 		   if (hasFill) {

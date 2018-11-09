@@ -135,7 +135,7 @@
        ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
        ctx.clip();
        var lines = this._lines;
-       for (var i = 0, l = lines.length && i * leading <= rectangle.height; i < l; i++) {
+       for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
            // See Path._draw() for explanation about ctx.shadowColor
            ctx.shadowColor = shadowColor;
            var line = lines[i];
