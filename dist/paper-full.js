@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Oct 22 18:37:48 2018 +0100
+ * Date: Mon Nov 5 13:11:50 2018 +0000
  *
  ***
  *
@@ -11306,10 +11306,11 @@ var PointText = TextItem.extend({
 		 this._wrap(ctx);
 		 this._needsWrap = false;
 	   }
+	   ctx.save();
+	   ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+	   ctx.clip();
 	   var lines = this._lines;
-	   for (var i = 0, l = lines.length; i < l; i++) {
-		   if ((i+1) * leading > rectangle.height)
-			   return;
+	   for (var i = 0, l = lines.length && i * leading <= rectangle.height; i < l; i++) {
 		   ctx.shadowColor = shadowColor;
 		   var line = lines[i];
 		   if (hasFill) {
@@ -11320,6 +11321,7 @@ var PointText = TextItem.extend({
 			   ctx.strokeText(line, anchor.x, anchor.y);
 		   ctx.translate(0, leading);
 	   }
+	   ctx.restore();
    },
 
    _getBounds: function(matrix, options) {
