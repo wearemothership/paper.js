@@ -96,7 +96,7 @@
      //var anchor = new Point(0,this._style.getFontSize());
      
      // text centered vertically
-     var anchor = new Point(0,Math.max(this.leading, rectangle.height/2 - this.leading * (this._lines.length - 2) /2));
+     var anchor = new Point(0, Math.max(this.leading/2, rectangle.height/2 + this.fontSize/4 - (this.leading*(this._lines.length-1))/2));
 
      if (justification == 'center') {
        anchor = anchor.add([rectangle.width/2,0]);

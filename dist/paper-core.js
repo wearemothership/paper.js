@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Fri Nov 9 10:46:07 2018 +0000
+ * Date: Fri Nov 9 15:40:59 2018 +0000
  *
  ***
  *
@@ -11269,7 +11269,7 @@ var PointText = TextItem.extend({
    _updateAnchor: function() {
 	 var justification = this._style.getJustification(),
 		 rectangle = this.getRectangle();
-	 var anchor = new Point(0,Math.max(this.leading, rectangle.height/2 - this.leading * (this._lines.length - 2) /2));
+	 var anchor = new Point(0, Math.max(this.leading/2, rectangle.height/2 + this.fontSize/4 - (this.leading*(this._lines.length-1))/2));
 
 	 if (justification == 'center') {
 	   anchor = anchor.add([rectangle.width/2,0]);
