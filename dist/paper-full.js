@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Fri Nov 9 15:40:59 2018 +0000
+ * Date: Fri Nov 9 17:45:41 2018 +0000
  *
  ***
  *
@@ -32,7 +32,6 @@
 
 var paper = function(self, undefined) {
 
-self = self || require('./node/self.js');
 var window = self.window,
 	document = self.document;
 
@@ -16830,7 +16829,6 @@ var paper = new (PaperScope.inject(Base.exports, {
 }))();
 
 if (paper.agent.node) {
-	require('./node/extend.js')(paper);
 }
 
 if (typeof define === 'function' && define.amd) {
