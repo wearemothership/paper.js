@@ -285,6 +285,8 @@ var PaperScope = Base.extend(/** @lends PaperScope# */{
             projects[i].remove();
         for (var i = tools.length - 1; i >= 0; i--)
             tools[i].remove();
+
+        CanvasProvider.clear();
     },
 
     remove: function() {

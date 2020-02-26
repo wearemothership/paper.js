@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Fri Nov 9 17:45:41 2018 +0000
+ * Date: Thu May 16 17:21:38 2019 +0100
  *
  ***
  *
@@ -843,6 +843,8 @@ var PaperScope = Base.extend({
 			projects[i].remove();
 		for (var i = tools.length - 1; i >= 0; i--)
 			tools[i].remove();
+
+		CanvasProvider.clear();
 	},
 
 	remove: function() {
@@ -13795,6 +13797,10 @@ var CanvasProvider = {
 			canvas.getContext('2d').restore();
 			this.canvases.push(canvas);
 		}
+	},
+
+	clear: function() {
+		this.canvases = [];
 	}
 };
 

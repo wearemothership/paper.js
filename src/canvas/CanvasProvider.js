@@ -63,5 +63,10 @@ var CanvasProvider = {
             canvas.getContext('2d').restore();
             this.canvases.push(canvas);
         }
+    },
+
+    // we are done, allow garbage collection of canvas'
+    clear: function() {
+        this.canvases = [];
     }
 };
