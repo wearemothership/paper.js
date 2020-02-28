@@ -67,6 +67,10 @@ var CanvasProvider = {
 
     // we are done, allow garbage collection of canvas'
     clear: function() {
+        for (let canvas of this.canvases) {
+			canvas.width = 0;
+			canvas.height = 0;
+		}
         this.canvases = [];
     }
 };

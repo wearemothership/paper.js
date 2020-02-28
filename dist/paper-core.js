@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Thu May 16 17:21:38 2019 +0100
+ * Date: Wed Feb 26 17:38:46 2020 +0000
  *
  ***
  *
@@ -13797,6 +13797,10 @@ var CanvasProvider = {
 	},
 
 	clear: function() {
+		for (let canvas of this.canvases) {
+			canvas.width = 0;
+			canvas.height = 0;
+		}
 		this.canvases = [];
 	}
 };
