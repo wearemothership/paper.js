@@ -120,7 +120,6 @@
            hasFill = style.hasFill(),
            hasStroke = style.hasStroke(),
            rectangle = this.rectangle,
-           anchor = this._getAnchor(),
            leading = style.getLeading(),
            shadowColor = ctx.shadowColor;
        ctx.font = style.getFontStyle();
@@ -132,7 +131,8 @@
        ctx.save();
        ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
        ctx.clip();
-       var lines = this._lines;
+	   var lines = this._lines;
+	   const anchor = this._getAnchor();
        for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
            // See Path._draw() for explanation about ctx.shadowColor
            ctx.shadowColor = shadowColor;
