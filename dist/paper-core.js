@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Wed Feb 26 17:38:46 2020 +0000
+ * Date: Mon Mar 23 12:49:35 2020 +0000
  *
  ***
  *
@@ -11294,7 +11294,6 @@ var PointText = TextItem.extend({
 		   hasFill = style.hasFill(),
 		   hasStroke = style.hasStroke(),
 		   rectangle = this.rectangle,
-		   anchor = this._getAnchor(),
 		   leading = style.getLeading(),
 		   shadowColor = ctx.shadowColor;
 	   ctx.font = style.getFontStyle();
@@ -11307,6 +11306,7 @@ var PointText = TextItem.extend({
 	   ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	   ctx.clip();
 	   var lines = this._lines;
+	   const anchor = this._getAnchor();
 	   for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
 		   ctx.shadowColor = shadowColor;
 		   var line = lines[i];
