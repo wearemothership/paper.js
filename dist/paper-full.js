@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Wed Jan 20 11:30:50 2021 +0000
+ * Date: Wed Jan 20 11:37:14 2021 +0000
  *
  ***
  *
@@ -11232,6 +11232,15 @@ var PointText = TextItem.extend({
 	 this._content = '' + content;
 	 this._needsWrap = true;
 	 this._changed(521);
+   },
+
+   getJustification: function() {
+	 return this.style.getJustification();
+   },
+
+   setJustification: function() {
+	 this._style.justification = arguments[0];
+	 this._updateAnchor();
    },
 
    _wrap: function(ctx) {

@@ -54,6 +54,15 @@
      this._changed(/*#=*/Change.CONTENT);
    },
 
+   getJustification: function() {
+     return this.style.getJustification();
+   },
+
+   setJustification: function() {
+     this._style.justification = arguments[0];
+     this._updateAnchor();
+   },
+
    _wrap: function(ctx) {
       var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
       this._lines = [];
