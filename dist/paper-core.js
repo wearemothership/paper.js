@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Mar 23 12:49:35 2020 +0000
+ * Date: Mon Mar 23 12:53:15 2020 +0000
  *
  ***
  *
@@ -11232,14 +11232,13 @@ var PointText = TextItem.extend({
    },
 
    getJustification: function() {
-	 return this._style._justification;
-   },
+    return this.style.getJustification();
+  },
 
-   setJustification: function() {
-	 this._style.justification = arguments[0];
-	 this._updateAnchor();
-   },
-
+  setJustification: function() {
+    this._style.justification = arguments[0];
+    this._updateAnchor();
+  },
    _wrap: function(ctx) {
 	  var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
 	  this._lines = [];
@@ -11270,6 +11269,7 @@ var PointText = TextItem.extend({
    _updateAnchor: function() {
 	 var justification = this._style.getJustification(),
 		 rectangle = this.getRectangle();
+
 	 var anchor = new Point(0, Math.max(this.leading/2, rectangle.height/2 + this.fontSize/4 - (this.leading*(this._lines.length-1))/2));
 
 	 if (justification == 'center') {

@@ -54,15 +54,6 @@
      this._changed(/*#=*/Change.CONTENT);
    },
 
-   getJustification: function() {
-     return this._style._justification;
-   },
-
-   setJustification: function() {
-     this._style.justification = arguments[0];
-     this._updateAnchor();
-   },
-
    _wrap: function(ctx) {
       var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
       this._lines = [];
@@ -81,7 +72,7 @@
           else {
             line = testLine;
           }
-          const wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;  
+          const wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
 		      minWidth = Math.max(minWidth, wordWidth);
         }
         this._lines.push(line);
@@ -94,7 +85,7 @@
      var justification = this._style.getJustification(),
          rectangle = this.getRectangle();
      //var anchor = new Point(0,this._style.getFontSize());
-     
+
      // text centered vertically
      var anchor = new Point(0, Math.max(this.leading/2, rectangle.height/2 + this.fontSize/4 - (this.leading*(this._lines.length-1))/2));
 
