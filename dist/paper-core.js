@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Mar 23 12:53:15 2020 +0000
+ * Date: Wed Jan 20 11:30:50 2021 +0000
  *
  ***
  *
@@ -11231,14 +11231,6 @@ var PointText = TextItem.extend({
 	 this._changed(521);
    },
 
-   getJustification: function() {
-    return this.style.getJustification();
-  },
-
-  setJustification: function() {
-    this._style.justification = arguments[0];
-    this._updateAnchor();
-  },
    _wrap: function(ctx) {
 	  var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
 	  this._lines = [];
