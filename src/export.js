@@ -34,7 +34,7 @@ var paper = new (PaperScope.inject(Base.exports, {
 // - PaperScript support in require() with sourceMaps
 // - exportFrames / exportImage on CanvasView
 if (paper.agent.node) {
-    require('./node/extend.js')(paper);
+    // require('./node/extend.js')(paper);
 }
 
 // https://github.com/umdjs/umd
