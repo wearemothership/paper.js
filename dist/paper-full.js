@@ -1,5 +1,5 @@
 /*!
- * Paper.js v0.12.15 - The Swiss Army Knife of Vector Graphics Scripting.
+ * Paper.js v0.12.15-develop - The Swiss Army Knife of Vector Graphics Scripting.
  * http://paperjs.org/
  *
  * Copyright (c) 2011 - 2020, Jürg Lehni & Jonathan Puckey
@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Wed Mar 17 10:49:48 2021 +0100
+ * Date: Mon Apr 19 15:39:43 2021 +0100
  *
  ***
  *
@@ -32,7 +32,6 @@
 
 var paper = function(self, undefined) {
 
-self = self || require('./node/self.js');
 var window = self.window,
 	document = self.document;
 
@@ -821,7 +820,7 @@ var PaperScope = Base.extend({
 		}
 	},
 
-	version: "0.12.15",
+	version: "0.12.15-develop",
 
 	getView: function() {
 		var project = this.project;
@@ -874,6 +873,8 @@ var PaperScope = Base.extend({
 			projects[i].remove();
 		for (var i = tools.length - 1; i >= 0; i--)
 			tools[i].remove();
+
+		CanvasProvider.clear();
 	},
 
 	remove: function() {
@@ -11641,6 +11642,127 @@ var PointText = TextItem.extend({
 	}
 });
 
+ var AreaText = TextItem.extend({
+   _class: 'AreaText',
+
+   initialize: function AreaText() {
+	 this._anchor = [0,0];
+	 this._needsWrap = false;
+	 TextItem.apply(this, arguments);
+   },
+
+   getRectangle: function() {
+
+	 return this._rectangle;
+   },
+
+   setRectangle: function() {
+	   var rectangle = Rectangle.read(arguments);
+	   this._rectangle = rectangle;
+	   this.translate(rectangle.topLeft.subtract(this._matrix.getTranslation()));
+	   this._updateAnchor();
+	   this._needsWrap = true;
+	   this._changed(9);
+   },
+
+   setContent: function(content) {
+	 this._content = '' + content;
+	 this._needsWrap = true;
+	 this._changed(521);
+   },
+
+   _wrap: function(ctx) {
+	  var unbrokenLines = this._content.split(/\r\n|\n|\r/mg);
+	  this._lines = [];
+	  var minWidth = 0;
+	  for (var i = 0; i < unbrokenLines.length; i++) {
+		var words = unbrokenLines[i].split(' '),
+		line = '';
+		for (var j = 0; j < words.length; j++) {
+		  var testLine = line + words[j] + ' ',
+			  metrics = ctx.measureText(testLine),
+			  testWidth = metrics.width;
+		  if (testWidth > this.rectangle.width && j > 0) {
+			this._lines.push(line);
+			line = words[j] + ' ';
+		  }
+		  else {
+			line = testLine;
+		  }
+		  const wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
+		      minWidth = Math.max(minWidth, wordWidth);
+		}
+		this._lines.push(line);
+	  }
+	  this._updateAnchor();
+	  this.minWidth = minWidth;
+   },
+
+   _updateAnchor: function() {
+	 var justification = this._style.getJustification(),
+		 rectangle = this.getRectangle();
+
+	 var anchor = new Point(0, Math.max(this.leading/2, rectangle.height/2 + this.fontSize/4 - (this.leading*(this._lines.length-1))/2));
+
+	 if (justification == 'center') {
+	   anchor = anchor.add([rectangle.width/2,0]);
+	 }
+	 else if (justification == 'right') {
+	   anchor = anchor.add([rectangle.width,0]);
+	 }
+	 this._anchor = anchor;
+   },
+
+   _getAnchor: function() {
+
+	 return this._anchor;
+   },
+
+   _draw: function(ctx, param, viewMatrix) {
+	   if (!this._content)
+		   return;
+	   this._setStyles(ctx, param, viewMatrix);
+	   var style = this._style,
+		   hasFill = style.hasFill(),
+		   hasStroke = style.hasStroke(),
+		   rectangle = this.rectangle,
+		   leading = style.getLeading(),
+		   shadowColor = ctx.shadowColor;
+	   ctx.font = style.getFontStyle();
+	   ctx.textAlign = style.getJustification();
+	   if (this._needsWrap) {
+		 this._wrap(ctx);
+		 this._needsWrap = false;
+	   }
+	   ctx.save();
+	   ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+	   ctx.clip();
+	   var lines = this._lines;
+	   const anchor = this._getAnchor();
+	   for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
+		   ctx.shadowColor = shadowColor;
+		   var line = lines[i];
+		   if (hasFill) {
+			   ctx.fillText(line, anchor.x, anchor.y);
+			   ctx.shadowColor = 'rgba(0,0,0,0)';
+		   }
+		   if (hasStroke)
+			   ctx.strokeText(line, anchor.x, anchor.y);
+		   ctx.translate(0, leading);
+	   }
+	   ctx.restore();
+   },
+
+   _getBounds: function(matrix, options) {
+
+	   var bounds = new Rectangle(
+		 0, 0,
+		 this.rectangle.width, this.rectangle.height
+	   );
+	   return matrix ? matrix._transformBounds(bounds, bounds) : bounds;
+   }
+ });
+
 var Color = Base.extend(new function() {
 	var types = {
 		gray: ['gray'],
@@ -14370,6 +14492,14 @@ var CanvasProvider = Base.exports.CanvasProvider = {
 			canvas.getContext('2d').restore();
 			this.canvases.push(canvas);
 		}
+	},
+
+	clear: function() {
+		for (let canvas of this.canvases) {
+			canvas.width = 0;
+			canvas.height = 0;
+		}
+		this.canvases = [];
 	}
 };
 
@@ -17446,7 +17576,6 @@ var paper = new (PaperScope.inject(Base.exports, {
 }))();
 
 if (paper.agent.node) {
-	require('./node/extend.js')(paper);
 }
 
 if (typeof define === 'function' && define.amd) {

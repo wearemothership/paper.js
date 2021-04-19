@@ -67,10 +67,10 @@ var CanvasProvider = Base.exports.CanvasProvider = {
 
     // we are done, allow garbage collection of canvas'
     clear: function() {
-        for (let canvas of this.canvases) {
-			canvas.width = 0;
-			canvas.height = 0;
+        for (var i = 0; i < this.canvases.length; i += 1) {
+			this.canvases[i].width = 0;
+			this.canvases[i].height = 0;
 		}
-        this.canvases = [];
+        this.canvases.length = 0;
     }
 };

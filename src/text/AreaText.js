@@ -72,7 +72,7 @@
           else {
             line = testLine;
           }
-          const wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
+          var wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
 		      minWidth = Math.max(minWidth, wordWidth);
         }
         this._lines.push(line);
@@ -123,7 +123,7 @@
        ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
        ctx.clip();
 	   var lines = this._lines;
-	   const anchor = this._getAnchor();
+	   var anchor = this._getAnchor();
        for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
            // See Path._draw() for explanation about ctx.shadowColor
            ctx.shadowColor = shadowColor;
