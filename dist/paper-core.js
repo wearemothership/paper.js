@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Apr 19 15:39:43 2021 +0100
+ * Date: Mon Apr 19 15:59:23 2021 +0100
  *
  ***
  *
@@ -11686,7 +11686,7 @@ var PointText = TextItem.extend({
 		  else {
 			line = testLine;
 		  }
-		  const wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
+		  var wordWidth = j == 0 ? testWidth : ctx.measureText(words[j] + ' ').width;
 		      minWidth = Math.max(minWidth, wordWidth);
 		}
 		this._lines.push(line);
@@ -11735,7 +11735,7 @@ var PointText = TextItem.extend({
 	   ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	   ctx.clip();
 	   var lines = this._lines;
-	   const anchor = this._getAnchor();
+	   var anchor = this._getAnchor();
 	   for (var i = 0, l = lines.length; i < l && i * leading <= rectangle.height; i++) {
 		   ctx.shadowColor = shadowColor;
 		   var line = lines[i];
@@ -14492,11 +14492,11 @@ var CanvasProvider = Base.exports.CanvasProvider = {
 	},
 
 	clear: function() {
-		for (let canvas of this.canvases) {
-			canvas.width = 0;
-			canvas.height = 0;
+		for (var i = 0; i < this.canvases.length; i += 1) {
+			this.canvases[i].width = 0;
+			this.canvases[i].height = 0;
 		}
-		this.canvases = [];
+		this.canvases.length = 0;
 	}
 };
 
