@@ -3261,6 +3261,7 @@ declare namespace paper {
          */
         tools: Tool[]
 
+        AreaText: typeof AreaText
         Color: typeof Color
         CompoundPath: typeof CompoundPath
         Curve: typeof Curve
@@ -4913,6 +4914,36 @@ declare namespace paper {
          * @param point - the position where the text will start
          */
         constructor(point: Point)
+
+        /** 
+         * Creates a point text item from the properties described by an object
+         * literal.
+         * 
+         * @param object - an object containing properties describing the
+         *     path's attributes
+         */
+        constructor(object: object)
+
+    }
+
+    /** 
+     * An AreaText item represents a piece of multiline typography in your Paper.js
+     * project which starts from a certain point and extends by the amount of
+     * characters contained in it.
+     */
+     class AreaText extends TextItem {
+        /** 
+         * The AreaText's anchor point
+         */
+        rectangle: Rectangle
+
+
+        /** 
+         * Creates a point text item
+         * 
+         * @param rectangle - the rectangle where the text will be displayed
+         */
+        constructor(rectangle: Rectangle)
 
         /** 
          * Creates a point text item from the properties described by an object

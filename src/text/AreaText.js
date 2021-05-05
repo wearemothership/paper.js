@@ -103,6 +103,15 @@
      return this._anchor;
    },
 
+   getJustification: function() {
+		 return this._style.getJustification();
+ 	 },
+
+	 setJustification: function() {
+		 this._style.justification = arguments[0];
+		 this._updateAnchor();
+	 },
+
    _draw: function(ctx, param, viewMatrix) {
        if (!this._content)
            return;
