@@ -1,5 +1,5 @@
 /*!
- * Paper.js v0.12.15-develop - The Swiss Army Knife of Vector Graphics Scripting.
+ * Paper.js v0.12.15-areaText-justification-fix - The Swiss Army Knife of Vector Graphics Scripting.
  * http://paperjs.org/
  *
  * Copyright (c) 2011 - 2020, Jürg Lehni & Jonathan Puckey
@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Apr 19 15:59:23 2021 +0100
+ * Date: Wed May 5 16:44:41 2021 +0100
  *
  ***
  *
@@ -820,7 +820,7 @@ var PaperScope = Base.extend({
 		}
 	},
 
-	version: "0.12.15-develop",
+	version: "0.12.15-areaText-justification-fix",
 
 	getView: function() {
 		var project = this.project;
@@ -11717,6 +11717,15 @@ var PointText = TextItem.extend({
 
 	 return this._anchor;
    },
+
+   getJustification: function() {
+		 return this._style.getJustification();
+ 	 },
+
+	 setJustification: function() {
+		 this._style.justification = arguments[0];
+		 this._updateAnchor();
+	 },
 
    _draw: function(ctx, param, viewMatrix) {
 	   if (!this._content)
