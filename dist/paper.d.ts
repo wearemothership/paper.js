@@ -4972,15 +4972,7 @@ declare namespace paper {
 		/** 
 		 * The lines associated with the AreaText
 		*/
-		_lines: string[]
-
-
-        /** 
-         * Creates a point text item
-         * 
-         * @param rectangle - the rectangle where the text will be displayed
-         */
-        constructor(rectangle: Rectangle)
+		lines: string[]
 
         /** 
          * Creates a point text item from the properties described by an object
