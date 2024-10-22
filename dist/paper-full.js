@@ -11674,7 +11674,7 @@ var PointText = TextItem.extend({
    },
 
    getLines: function() {
-       return this_lines;
+       return this._lines ?? [];
    },
 
    setRectangle: function() {
