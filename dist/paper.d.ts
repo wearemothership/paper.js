@@ -4959,6 +4959,21 @@ declare namespace paper {
          */
         rectangle: Rectangle
 
+         /**
+		 * The minimum width for the AreaText
+		 */
+		minWidth: number
+
+		/**
+		 * The line height to use for the text
+		 */
+		leading: number
+
+		/** 
+		 * The lines associated with the AreaText
+		*/
+		_lines: string[]
+
 
         /** 
          * Creates a point text item
