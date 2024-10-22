@@ -11656,12 +11656,22 @@ var PointText = TextItem.extend({
    initialize: function AreaText() {
 	 this._anchor = [0,0];
 	 this._needsWrap = false;
+     if (arguments[0].rectangle) {
+		this._rectangle = arguments[0].rectangle;
+	 }
 	 TextItem.apply(this, arguments);
+     if (this._rectangle) {
+	 	this.translate(this._rectangle.topLeft.subtract(this._matrix.getTranslation()));
+	 }
    },
 
    getRectangle: function() {
 
 	 return this._rectangle;
+   },
+
+   getLines: function() {
+       return this._lines;
    },
 
    setRectangle: function() {
@@ -11774,7 +11784,7 @@ var PointText = TextItem.extend({
 
 	   var bounds = new Rectangle(
 		 0, 0,
-		 this.rectangle.width, this.rectangle.height
+		 this._rectangle.width, this._rectangle.height
 	   );
 	   return matrix ? matrix._transformBounds(bounds, bounds) : bounds;
    }
