@@ -4660,7 +4660,7 @@ declare namespace paper {
          * 
          * @return the rotated point
          */
-        rotate(angle: number, center: PointLike): Point
+        rotate(angle: number, center?: PointLike): Point
 
         /** 
          * Transforms the point by the matrix as a new point. The object itself is
@@ -5224,7 +5224,7 @@ declare namespace paper {
          * 
          * @return the first item in the project matching the given criteria
          */
-        getItem(options: object | Function): Item
+        getItem(options: object | Function): Item | null
 
         /** 
          * Exports (serializes) the project with all its layers and child items to a
